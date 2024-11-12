@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: batch-gi
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/batch_gi?sesrverTimezone=UTC
+    username: root
+    password: mysql
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true

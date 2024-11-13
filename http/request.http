@@ -1,5 +1,12 @@
 // @no-log
-POST http://localhost:8080/launch
+POST http://localhost:8080/launch/first
+Content-Type: application/json
+
+{}
+
+###
+// @no-log
+POST http://localhost:8080/launch/second
 Content-Type: application/json
 
 {}

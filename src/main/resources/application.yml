@@ -1,4 +1,7 @@
 spring:
+  batch:
+    job:
+      enabled: false
   application:
     name: batch-gi
   datasource:
@@ -11,3 +14,4 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     show-sql: true
+    open-in-view: false

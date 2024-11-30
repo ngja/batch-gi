@@ -1,4 +1,4 @@
-package com.hansol.batchgi.docs
+package com.hansol.batchgi.controller
 
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.JobParameter

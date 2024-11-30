@@ -3,7 +3,6 @@ package com.hansol.batchgi.docs
 import com.hansol.batchgi.logger
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
-import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.launch.support.RunIdIncrementer
 import org.springframework.batch.core.repository.JobRepository
@@ -14,10 +13,14 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
-class FirstJobConfiguration : DefaultBatchConfiguration() {
+class FirstJobConfiguration(
+    val jobRepository: JobRepository,
+    val transactionManager: PlatformTransactionManager,
+) {
+
 
     @Bean
-    fun firstJob(jobRepository: JobRepository, firstStep: Step): Job {
+    fun firstJob(firstStep: Step): Job {
         return JobBuilder("firstJob", jobRepository)
             .incrementer(RunIdIncrementer())
             .listener(FirstJobExecutionListener())
@@ -26,7 +29,7 @@ class FirstJobConfiguration : DefaultBatchConfiguration() {
     }
 
     @Bean
-    fun firstStep(jobRepository: JobRepository, transactionManager: PlatformTransactionManager): Step {
+    fun firstStep(): Step {
         return StepBuilder("firstStep", jobRepository)
             .tasklet(
                 {_, _ ->

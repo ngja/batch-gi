@@ -3,7 +3,6 @@ package com.hansol.batchgi.docs
 import com.hansol.batchgi.logger
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
-import org.springframework.batch.core.configuration.support.DefaultBatchConfiguration
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
@@ -16,17 +15,20 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
-class SecondJobConfiguration : DefaultBatchConfiguration() {
+class SecondJobConfiguration(
+    val jobRepository: JobRepository,
+    val transactionManager: PlatformTransactionManager,
+) {
 
     @Bean
-    fun secondJob(jobRepository: JobRepository, transactionManager: PlatformTransactionManager): Job {
+    fun secondJob(): Job {
         return JobBuilder("secondJob", jobRepository)
-            .start(secondStep(jobRepository, transactionManager))
+            .start(secondStep())
             .build()
     }
 
     @Bean
-    fun secondStep(jobRepository: JobRepository, transactionManager: PlatformTransactionManager): Step {
+    fun secondStep(): Step {
         return StepBuilder("secondStep", jobRepository)
             .chunk<String, String>(10, transactionManager)
             .reader(itemReader())

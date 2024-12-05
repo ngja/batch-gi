@@ -13,6 +13,7 @@ class JobLauncherController(
     private val jobLauncher: JobLauncher,
     private val firstJob: Job,
     private val secondJob: Job,
+    private val importUserJob: Job,
 ) {
 
     @PostMapping("/launch/first")
@@ -24,5 +25,10 @@ class JobLauncherController(
     @PostMapping("/launch/second")
     fun launchSecond() {
         jobLauncher.run(secondJob, JobParameters(mapOf("seconds" to JobParameter(LocalDateTime.now().second, Int::class.java))))
+    }
+
+    @PostMapping("/launch/person-job")
+    fun personJob() {
+        jobLauncher.run(importUserJob, JobParameters(mapOf()))
     }
 }

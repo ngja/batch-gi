@@ -12,3 +12,10 @@ Content-Type: application/json
 {}
 
 ###
+// @no-log
+POST http://localhost:8080/launch/person-job
+Content-Type: application/json
+
+{}
+
+###
